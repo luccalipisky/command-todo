@@ -20,6 +20,7 @@ function clearPromptFeedback() {
   }
 }
 
+let tasks = [];
 let id = 1;
 
 function promptSubmit(e) {
@@ -36,8 +37,8 @@ function promptSubmit(e) {
       case "edit":
         editTask(prompt_text);
         break;
-      case "delete":
-        deleteTask(prompt_text);
+      case "remove":
+        removeTask(prompt_text);
         break;
       case "status":
         break;
@@ -51,6 +52,25 @@ function promptSubmit(e) {
     $(e.target).val("");
     e.preventDefault();
   }
+}
+
+function renderTasks() {
+  $("#tasks-list").html(
+    tasks.map(
+      (t) => `
+      <p class="gray mt-1 font-light" id="task-${t.id}">
+      ${t.id}. <span id="task-${t.id}-status">□</span> <span id="task-desc">${t.description}</span>
+      </p>
+    `
+    )
+  );
+}
+
+function reArrangeTasks(arr) {
+  for (var a in arr) {
+    arr[a].id = parseInt(a) + 1;
+  }
+  return arr;
 }
 
 // Action methods
@@ -70,11 +90,12 @@ function newProject(text) {
 
 function addTask(text) {
   if ($("#project-name-container").html()) {
-    $("#tasks-list").append(`
-      <p class="gray mt-1 font-light" id="task-${id}">
-      ${id}. <span id="task-${id}-status">□</span> <span id="task-desc">${text}</span>
-      </p>
-    `);
+    tasks.push({
+      id: id,
+      description: text,
+      status: "pending",
+    });
+    renderTasks();
     $("#project-name-container").find("#total-counter").text(id);
     id += 1;
   } else {
@@ -86,11 +107,13 @@ function addTask(text) {
 
 function editTask(text) {
   if ($("#project-name-container").html()) {
-    let prompt_name = getPromptText(text);
+    let prompt_desc = getPromptText(text);
     let prompt_id = text.split(" ")[0];
     if ($(`p#task-${prompt_id}`).length) {
-      if (prompt_name) {
-        $(`p#task-${prompt_id}`).find("span#task-desc").text(prompt_name);
+      if (prompt_desc) {
+        let taskIndex = tasks.findIndex((t) => t.id === parseInt(prompt_id));
+        tasks[taskIndex].description = prompt_desc;
+        renderTasks();
       } else {
         $("#prompt-feedback").text(
           "You need to provide a new description for that task"
@@ -104,11 +127,13 @@ function editTask(text) {
   }
 }
 
-function deleteTask(text) {
+function removeTask(text) {
   if ($("#project-name-container").html()) {
     let prompt_id = text.split(" ")[0];
     if ($(`p#task-${prompt_id}`).length) {
-      // delete
+      tasks = tasks.filter((t) => t.id !== parseInt(prompt_id));
+      tasks = reArrangeTasks(tasks);
+      renderTasks();
     } else {
       $("#prompt-feedback").text("Task does not exist.");
     }
