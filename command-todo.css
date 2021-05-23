@@ -1,0 +1,68 @@
+body {
+  background-color: #232940;
+}
+* {
+  font-family: "Source Code Pro", monospace;
+}
+.command-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); /* IE 9 */
+  -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */
+  box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.18);
+}
+.command-bar {
+  background-color: #202124;
+}
+.command-window {
+  background-color: #282f47;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.color-close {
+  background-color: #ff5f57;
+}
+.color-minimize {
+  background-color: #febc2e;
+}
+.color-maximize {
+  background-color: #28c840;
+}
+.prompt-input {
+  font-weight: 400;
+  background-color: transparent;
+  color: #c0d92c;
+  resize: none;
+  outline: none;
+  border: none;
+  display: inline;
+  font-size: inherit;
+  padding: none;
+  width: auto;
+}
+.prompt-feedback {
+  font-weight: 300;
+  font-size: 15px;
+  color: #a5514d;
+}
+.gray {
+  color: #7b8abb;
+}
+.light-gray {
+  color: #475170;
+}
+.tasks-summary {
+  font-family: "Source Code Pro", monospace;
+  font-weight: 300;
+  position: absolute;
+  bottom: 0;
+}
+.help-hint {
+  font-family: "Source Code Pro", monospace;
+  font-weight: 300;
+  color: #bfd92c46;
+  position: absolute;
+  bottom: 0;
+}
