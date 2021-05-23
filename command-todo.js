@@ -41,6 +41,7 @@ function promptSubmit(e) {
         removeTask(prompt_text);
         break;
       case "status":
+        changeStatus(prompt_text);
         break;
       case "help":
         break;
@@ -54,12 +55,22 @@ function promptSubmit(e) {
   }
 }
 
+let statusIcons = {
+  pending: { icon: "□", color: "" },
+  doing: { icon: "◌", color: "#febc2e" },
+  done: { icon: "✓", color: "#28c840" },
+};
+
 function renderTasks() {
   $("#tasks-list").html(
     tasks.map(
       (t) => `
       <p class="gray mt-1 font-light" id="task-${t.id}">
-      ${t.id}. <span id="task-${t.id}-status">□</span> <span id="task-desc">${t.description}</span>
+      ${t.id}. <span id="task-${t.id}-status" style='color: ${
+        statusIcons[t.status].color
+      }'>${statusIcons[t.status].icon}</span> <span id="task-desc">${
+        t.description
+      }</span>
       </p>
     `
     )
@@ -136,6 +147,43 @@ function removeTask(text) {
       lastTask = tasks[tasks.length - 1];
       renderTasks();
       $("#project-name-container").find("#total-counter").text(lastTask.id);
+      id = lastTask.id + 1;
+    } else {
+      $("#prompt-feedback").text("Task does not exist.");
+    }
+  } else {
+    $("#prompt-feedback").text("You need to create a project first.");
+  }
+}
+
+function changeStatus(text) {
+  if ($("#project-name-container").html()) {
+    let prompt_status = getPromptText(text);
+    let prompt_id = text.split(" ")[0];
+    if ($(`p#task-${prompt_id}`).length) {
+      if (prompt_status) {
+        let taskIndex = tasks.findIndex((t) => t.id === parseInt(prompt_id));
+        switch (prompt_status) {
+          case "pending":
+            tasks[taskIndex].status = prompt_status;
+            break;
+          case "doing":
+            tasks[taskIndex].status = prompt_status;
+            break;
+          case "done":
+            tasks[taskIndex].status = prompt_status;
+            break;
+          default:
+            $("#prompt-feedback").text(
+              "Status needs to be 'pending', 'doing', or 'done'"
+            );
+        }
+        renderTasks();
+      } else {
+        $("#prompt-feedback").text(
+          "You need to provide a new description for that task"
+        );
+      }
     } else {
       $("#prompt-feedback").text("Task does not exist.");
     }
