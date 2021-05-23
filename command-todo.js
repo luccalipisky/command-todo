@@ -133,7 +133,9 @@ function removeTask(text) {
     if ($(`p#task-${prompt_id}`).length) {
       tasks = tasks.filter((t) => t.id !== parseInt(prompt_id));
       tasks = reArrangeTasks(tasks);
+      lastTask = tasks[tasks.length - 1];
       renderTasks();
+      $("#project-name-container").find("#total-counter").text(lastTask.id);
     } else {
       $("#prompt-feedback").text("Task does not exist.");
     }
