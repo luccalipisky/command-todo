@@ -38,8 +38,12 @@
         <div class="mb-3" id="project-name-container"></div>
         <div id="tasks-list" class="ml-7 mb-14"></div>
 
-        <!-- <p class="light-gray tasks-summary">1 done · 1 doing · 1 pending</p> -->
-        <p class="help-hint -mb-4">
+        <p class="light-gray tasks-summary" id="tasks-summary">
+          <span id="done-counter">0</span> done ·
+          <span id="doing-counter">0</span> doing ·
+          <span id="pending-counter">0</span> pending
+        </p>
+        <p class="help-hint -mb-4" id="help-hint">
           Type <strong>'help'</strong> to see available commands.
         </p>
       </div>

@@ -3,6 +3,7 @@ $(document).ready(function () {
   $(".prompt-input").on("input", function () {
     clearPromptFeedback();
   });
+  showOrRemoveHint();
 });
 
 function getPromptText(p) {
@@ -20,6 +21,27 @@ function clearPromptFeedback() {
   }
 }
 
+function showOrRemoveHint() {
+  if ($("#tasks-list").html()) {
+    $("#help-hint").hide();
+    $("#tasks-summary").show();
+  } else {
+    $("#help-hint").show();
+    $("#tasks-summary").hide();
+  }
+  updateTasksSummary();
+}
+
+function updateTasksSummary() {
+  let pending_amount = tasks.filter((t) => t.status === "pending").length;
+  let doing_amount = tasks.filter((t) => t.status === "doing").length;
+  let done_amount = tasks.filter((t) => t.status === "done").length;
+  $("#pending-counter").text(pending_amount);
+  $("#doing-counter").text(doing_amount);
+  $("#done-counter").text(done_amount);
+  $("#project-done-counter").text(done_amount);
+}
+
 let tasks = [];
 let id = 1;
 
@@ -30,18 +52,22 @@ function promptSubmit(e) {
     switch (prompt_action) {
       case "new_project":
         newProject(prompt_text);
+        showOrRemoveHint();
         break;
       case "add":
         addTask(prompt_text);
+        showOrRemoveHint();
         break;
       case "edit":
         editTask(prompt_text);
         break;
       case "remove":
         removeTask(prompt_text);
+        showOrRemoveHint();
         break;
       case "status":
         changeStatus(prompt_text);
+        showOrRemoveHint();
         break;
       case "help":
         break;
@@ -90,7 +116,7 @@ function newProject(text) {
   if (text.length > 0) {
     $("#project-name-container").html(`
     <span class="gray italic" id="project-name">@${underscoredName(text)}</span>
-    <span class="light-gray" id="tasks-number">[<span id='done-counter'>0</span>/<span id='total-counter'>0</span>]</span>
+    <span class="light-gray" id="tasks-number">[<span id='project-done-counter'>0</span>/<span id='total-counter'>0</span>]</span>
     `);
   } else {
     $("#prompt-feedback").text(
