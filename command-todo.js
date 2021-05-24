@@ -40,6 +40,7 @@ function updateTasksSummary() {
   $("#doing-counter").text(doing_amount);
   $("#done-counter").text(done_amount);
   $("#project-done-counter").text(done_amount);
+  $("#project-total-counter").text(tasks.length);
 }
 
 let tasks = [];
@@ -116,7 +117,7 @@ function newProject(text) {
   if (text.length > 0) {
     $("#project-name-container").html(`
     <span class="gray italic" id="project-name">@${underscoredName(text)}</span>
-    <span class="light-gray" id="tasks-number">[<span id='project-done-counter'>0</span>/<span id='total-counter'>0</span>]</span>
+    <span class="light-gray" id="tasks-number">[<span id='project-done-counter'>0</span>/<span id='project-total-counter'>0</span>]</span>
     `);
   } else {
     $("#prompt-feedback").text(
@@ -133,7 +134,7 @@ function addTask(text) {
       status: "pending",
     });
     renderTasks();
-    $("#project-name-container").find("#total-counter").text(id);
+    $("#project-name-container").find("#project-total-counter").text(id);
     id += 1;
   } else {
     $("#prompt-feedback").text(
@@ -170,10 +171,11 @@ function removeTask(text) {
     if ($(`p#task-${prompt_id}`).length) {
       tasks = tasks.filter((t) => t.id !== parseInt(prompt_id));
       tasks = reArrangeTasks(tasks);
-      lastTask = tasks[tasks.length - 1];
       renderTasks();
-      $("#project-name-container").find("#total-counter").text(lastTask.id);
-      id = lastTask.id + 1;
+      $("#project-name-container")
+        .find("#project-total-counter")
+        .text(tasks.length);
+      id = tasks.length + 1;
     } else {
       $("#prompt-feedback").text("Task does not exist.");
     }
