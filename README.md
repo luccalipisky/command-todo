@@ -29,4 +29,4 @@ _In order to interact with the app, you need to know this commands_
 
 
 ---
-Made with ❤ by [Lucca Lipisky](https://www.linkedin.com/in/luccalipisky/)
+Developed by [Lucca Lipisky](https://www.linkedin.com/in/luccalipisky/)
