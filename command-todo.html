@@ -32,20 +32,58 @@
           class="prompt-input mb-2 w-full"
           onkeypress="promptSubmit(event)"
         />
-        <p class="prompt-feedback mb-6" id="prompt-feedback">
-          <!-- Command not found. Type 'help' to see available commands. -->
-        </p>
-        <div class="mb-3" id="project-name-container"></div>
-        <div id="tasks-list" class="ml-7 mb-14"></div>
+        <p class="prompt-feedback mb-6" id="prompt-feedback"></p>
+        <div id="available-commands" class="hidden">
+          <p class="gray mt-6">Available commands:</p>
+          <p class="gray mt-6 font-light help-p">
+            <strong class="help-orange">> new_project</strong> - Creates a new
+            project e.g.('new_project coding challenge').
+          </p>
+          <p class="gray mt-6 font-light help-p">
+            <strong class="help-orange">> add</strong> - Adds a new task to the
+            project e.g.('add Work on UI').
+          </p>
+          <p class="gray mt-6 font-light help-p">
+            <strong class="help-orange">> edit</strong> - Updates the
+            description of a task using the task id and a new description
+            e.g.('edit 2 Start mocking UI').
+          </p>
+          <p class="gray mt-6 font-light help-p">
+            <strong class="help-orange">> remove</strong> - Removes a task from
+            the project using the task id e.g.('remove 3').
+          </p>
+          <p class="gray mt-6 font-light help-p">
+            <strong class="help-orange">> status</strong> - Updates the status
+            of a task using the task id. It takes as parameter 'pending',
+            'doing' or 'done'. E.g.('status 5 done').
+          </p>
+          <p class="gray mt-12 font-light help-p">
+            <strong>Type 'quit' to go back.</strong>
+          </p>
+          <p class="credits -mb-4 mr-8 font-light light-gray">
+            Developed by
+            <a
+              href="https://www.linkedin.com/in/luccalipisky"
+              target="_blank"
+              class="gray"
+              style="text-decoration: underline; cursor: pointer"
+              >Lucca Lipisky</a
+            >
+          </p>
+        </div>
+        <div id="tasks-view">
+          <div class="mb-3" id="project-name-container"></div>
+          <div id="tasks-list" class="ml-7 mb-14"></div>
 
-        <p class="light-gray tasks-summary" id="tasks-summary">
-          <span id="done-counter">0</span> done ·
-          <span id="doing-counter">0</span> doing ·
-          <span id="pending-counter">0</span> pending
-        </p>
-        <p class="help-hint -mb-4" id="help-hint">
-          Type <strong>'help'</strong> to see available commands.
-        </p>
+          <p class="light-gray tasks-summary" id="tasks-summary">
+            <span id="done-counter">0</span> done ·
+            <span id="doing-counter">0</span> doing ·
+            <span id="pending-counter">0</span> pending
+          </p>
+          <p class="help-hint -mb-4" id="help-hint">
+            Type <strong>'help'</strong> to see available commands.
+          </p>
+        </div>
       </div>
     </div>
   </body>

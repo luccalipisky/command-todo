@@ -52,25 +52,41 @@ function promptSubmit(e) {
     let prompt_action = e.target.value.split(" ")[0];
     switch (prompt_action) {
       case "new_project":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         newProject(prompt_text);
         showOrRemoveHint();
         break;
       case "add":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         addTask(prompt_text);
         showOrRemoveHint();
         break;
       case "edit":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         editTask(prompt_text);
         break;
       case "remove":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         removeTask(prompt_text);
         showOrRemoveHint();
         break;
       case "status":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         changeStatus(prompt_text);
         showOrRemoveHint();
         break;
       case "help":
+        $("#available-commands").removeClass("hidden");
+        $("#tasks-view").addClass("hidden");
+        break;
+      case "quit":
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
         break;
       default:
         $("#prompt-feedback").text(

@@ -30,6 +30,9 @@ body {
 .color-maximize {
   background-color: #28c840;
 }
+.help-orange {
+  color: #febc2e;
+}
 .prompt-input {
   font-weight: 400;
   background-color: transparent;
@@ -46,6 +49,12 @@ body {
   font-weight: 300;
   font-size: 15px;
   color: #a5514d;
+}
+.help-p {
+  font-size: 15px;
+  padding-left: 0.8em;
+  text-indent: -0.8em;
+  line-height: 1.5rem;
 }
 .gray {
   color: #7b8abb;
@@ -65,4 +74,10 @@ body {
   color: #bfd92c46;
   position: absolute;
   bottom: 0;
+}
+.credits {
+  font-family: "Source Code Pro", monospace;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
