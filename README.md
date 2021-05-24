@@ -22,13 +22,11 @@ _In order to interact with the app, you need to know this commands_
 ```
 
 
-## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
+## Built with 🛠️
 
 * [TailwindCSS](https://tailwindcss.com/)
 * [JQuery](https://jquery.com/) - Manejador de dependencias
 
 
 ---
-Made with ❤️ by [Lucca Lipisky](https://www.linkedin.com/in/luccalipisky/) 😊
+Made with ❤️  by [Lucca Lipisky](https://www.linkedin.com/in/luccalipisky/) 😊
