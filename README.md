@@ -1,7 +1,8 @@
 # Command To-Do
 
 Command To-Do is a simple task manager with a little twist: It has a terminal-like UI, so you need to manage your tasks with commands.
-<img width="623" alt="Screen Shot 2021-05-24 at 12 21 40" src="https://user-images.githubusercontent.com/63379212/119369564-b13ce980-bc8a-11eb-9954-e9c3ff0efec9.png">
+
+<img width="500" alt="Screen Shot 2021-05-24 at 12 21 40" src="https://user-images.githubusercontent.com/63379212/119369564-b13ce980-bc8a-11eb-9954-e9c3ff0efec9.png">
 
 
 ### Available commands 📋
