@@ -196,7 +196,7 @@ function renameProject(text) {
   if ($('#project-name-container').html().length) {
   project_name = text;
   saveProject();
-  $("#project-name-container").find('span#project-name').text(underscoredName(text));
+  $("#project-name-container").find('span#project-name').text(`@${underscoredName(text)}`);
   }
 }
 
