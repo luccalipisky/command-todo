@@ -111,7 +111,7 @@ function renderTasks() {
       <p class="gray mt-1 font-light" id="task-${t.id}">
       ${t.id}. <span id="task-${t.id}-status" style='color: ${
         statusIcons[t.status].color
-      }'>${statusIcons[t.status].icon}</span> <span id="task-desc">${
+      }'>${statusIcons[t.status].icon}</span> <span class="${t.status === 'done' ? 'task-done' : ''}" id="task-desc">${
         t.description
       }</span>
       </p>

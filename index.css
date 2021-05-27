@@ -68,6 +68,10 @@ body {
   position: absolute;
   bottom: 0;
 }
+.task-done {
+  text-decoration: line-through;
+  color: #475170;
+}
 .help-hint {
   font-family: "Source Code Pro", monospace;
   font-weight: 300;
