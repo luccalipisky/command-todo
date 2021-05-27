@@ -185,6 +185,7 @@ function newProject(text) {
 
 function deleteProject() {
   tasks = [];
+  id = 1;
   project_name = '';
   renderTasks();
   $("#project-name-container").html('');
