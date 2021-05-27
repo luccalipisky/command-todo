@@ -81,7 +81,9 @@ body {
 }
 .credits {
   font-family: "Source Code Pro", monospace;
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  font-style: italic;
+  line-height: 1rem;
+}
+.me-link:hover {
+  color: #7b8abb;
 }
