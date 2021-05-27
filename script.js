@@ -4,6 +4,19 @@ $(document).ready(function () {
     clearPromptFeedback();
   });
   showOrRemoveHint();
+  let projectNameStorage = window.localStorage.getItem('project_name');
+  let tasksStorage = window.localStorage.getItem('tasks');
+  if(projectNameStorage) {
+    $("#project-name-container").html(`
+    <span class="gray italic" id="project-name">@${underscoredName(JSON.parse(projectNameStorage))}</span>
+    <span class="light-gray" id="tasks-number">[<span id='project-done-counter'>0</span>/<span id='project-total-counter'>0</span>]</span>
+    `);
+  }
+  if(tasksStorage) {
+    tasks = JSON.parse(tasksStorage);
+    renderTasks();
+  }
+  
 });
 
 function getPromptText(p) {
@@ -43,6 +56,7 @@ function updateTasksSummary() {
   $("#project-total-counter").text(tasks.length);
 }
 
+let project_name;
 let tasks = [];
 let id = 1;
 
@@ -55,6 +69,15 @@ function promptSubmit(e) {
         $("#available-commands").addClass("hidden");
         $("#tasks-view").removeClass("hidden");
         newProject(prompt_text);
+        showOrRemoveHint();
+        break;
+      case 'rename_project':
+        renameProject(prompt_text);
+        break;
+      case 'delete_project':
+        $("#available-commands").addClass("hidden");
+        $("#tasks-view").removeClass("hidden");
+        deleteProject();
         showOrRemoveHint();
         break;
       case "add":
@@ -127,18 +150,52 @@ function reArrangeTasks(arr) {
   return arr;
 }
 
+function saveTask() {
+  window.localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+function saveProject() {
+  window.localStorage.setItem('project_name', JSON.stringify(project_name));
+}
+
+
 // Action methods
 
 function newProject(text) {
   if (text.length > 0) {
+    if ($('#project-name-container').html()) {
+      $("#prompt-feedback").text(
+        `Command ToDo only handles one project at a time.
+        If you want, you can delete this project
+        using 'delete_project' or rename it using 'rename_project [new_name]'.`
+      );
+    } else {
     $("#project-name-container").html(`
     <span class="gray italic" id="project-name">@${underscoredName(text)}</span>
     <span class="light-gray" id="tasks-number">[<span id='project-done-counter'>0</span>/<span id='project-total-counter'>0</span>]</span>
     `);
+    project_name = text;
+    saveProject();
+    }
   } else {
     $("#prompt-feedback").text(
       "'new_project' should be followed by the name of your project."
     );
+  }
+}
+
+function deleteProject() {
+  tasks = [];
+  project_name = '';
+  renderTasks();
+  $("#project-name-container").html('');
+  window.localStorage.clear();
+}
+
+function renameProject(text) {
+  if ($('#project-name-container').html().length) {
+  project_name = text;
+  saveProject();
+  $("#project-name-container").find('span#project-name').text(underscoredName(text));
   }
 }
 
@@ -149,6 +206,7 @@ function addTask(text) {
       description: text,
       status: "pending",
     });
+    saveTask();
     renderTasks();
     $("#project-name-container").find("#project-total-counter").text(id);
     id += 1;
@@ -167,6 +225,7 @@ function editTask(text) {
       if (prompt_desc) {
         let taskIndex = tasks.findIndex((t) => t.id === parseInt(prompt_id));
         tasks[taskIndex].description = prompt_desc;
+        saveTask();
         renderTasks();
       } else {
         $("#prompt-feedback").text(
@@ -187,6 +246,7 @@ function removeTask(text) {
     if ($(`p#task-${prompt_id}`).length) {
       tasks = tasks.filter((t) => t.id !== parseInt(prompt_id));
       tasks = reArrangeTasks(tasks);
+      saveTask();
       renderTasks();
       $("#project-name-container")
         .find("#project-total-counter")
@@ -222,6 +282,7 @@ function changeStatus(text) {
               "Status needs to be 'pending', 'doing', or 'done'"
             );
         }
+        saveTask();
         renderTasks();
       } else {
         $("#prompt-feedback").text(
